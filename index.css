@@ -2,11 +2,15 @@
     min-height: 100vh; /* minimum height = screen height */
     display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
 }
 .board {
     display: none;
 }
-/* .game-button {
+.game-control {
     display: none;
-} */
+}
+.game-body {
+    padding-left: 50px;
+    padding-right: 50px;
+}

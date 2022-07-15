@@ -35,37 +35,35 @@ function initialAI() {
     dealerSum = sumTotal(dealerCards);
     $('#dealer-sum').html(dealerSum);
 }
-function startgame() {
+function startGame() {
     $('.board').show();
-    $('.game-button').show();
-    if ($('#startBtn').html() == 'Start Game') {
-        //start game here
-        $('#startBtn').html("Restart");
-        //get initial 2 cards
-        getCard();
-        getCard();
-        playerSum = sumTotal(playerCards);
-        $('#player-sum').html(playerSum);
-        initialAI();
-    }
-    else if ($('#startBtn').html() == 'Restart'){
-        //Restart Game
-        $('#result').html('');
+    $('.startgame').hide();
+    $('.game-control').css('display', 'inline-flex');
 
-        playerCards = [];
-        $('#player-cards').html('');
-        $('#player-sum').html('0');
-        playerSum = 0;
-        initialCard();
-
-        dealerCards = [];
-        $('#dealer-cards').html('');
-        $('#dealer-sum').html('0');
-        dealerSum = 0;
-        initialAI();
-    }
+    //get initial 2 cards
+    getCard();
+    getCard();
+    playerSum = sumTotal(playerCards);
+    $('#player-sum').html(playerSum);
+    initialAI();
 }
 
+function restartGame() {
+    $('#result').html('');
+
+    playerCards = [];
+    $('#player-cards').html('');
+    $('#player-sum').html('0');
+    playerSum = 0;
+    initialCard();
+
+    dealerCards = [];
+    $('#dealer-cards').html('');
+    $('#dealer-sum').html('0');
+    dealerSum = 0;
+    initialAI();
+
+}
 function hitBtn() {
     getCard();
     playerSum = sumTotal(playerCards);

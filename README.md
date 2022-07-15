@@ -6,3 +6,6 @@ A copy of blackjack with mekdie's style and rule ! This game was aimed to copy f
 - First release and publishing trial on GitHub Website Hosting
 - Very basic logic of MekdieJack (To be extended)
 - Basic layout design (To be updated)
+*Version 1.0.1 Alpha:*
+- Hide the in-game control properly to separate between start game and restart
+

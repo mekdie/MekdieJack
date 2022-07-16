@@ -21,7 +21,7 @@ function getCard() {
 function getCardAI() {
     var card = cards[Math.floor(Math.random()*cards.length)];
     dealerCards.push(card);
-    $('#dealer-cards').html('<p>'+dealerCards+'</p>');
+    $('#dealer-cards').html('<p id="initialAI">'+dealerCards+'</p>');
 }
 function initialCard() {
     getCard();
@@ -33,7 +33,8 @@ function initialAI() {
     getCardAI();
     getCardAI();
     dealerSum = sumTotal(dealerCards);
-    $('#dealer-sum').html(dealerSum);
+    $('#dealer-sum').html('?');
+    $('#initialAI').html('<p id="initialAI">?,'+dealerCards[1]+'</p>');
 }
 function startGame() {
     $('.board').show();
@@ -50,6 +51,8 @@ function startGame() {
 
 function restartGame() {
     $('#result').html('');
+    $('#hit').prop('disabled', false);
+    $('#stay').prop('disabled', false);
 
     playerCards = [];
     $('#player-cards').html('');
@@ -72,9 +75,11 @@ function hitBtn() {
 
     if (playerSum == 21) {
         $('#result').html('You Win');
+        disableBtn();
     }
     else if (playerSum > 21) {
         $('#result').html('You Lose');
+        disableBtn();
     }
 }
 
@@ -86,12 +91,20 @@ function stayBtn() {
     if (dealerSum <= 21) {
         if (dealerSum > playerSum) {
             $('#result').html('You Lose');
+            disableBtn();
         }
         else {
             $('#result').html('You Win');
+            disableBtn();
         }
     }
     else {
         $('#result').html('You Win');
+        disableBtn();
     }
+}
+
+function disableBtn() {
+    $('#hit').prop('disabled', true);
+    $('#stay').prop('disabled', true);
 }

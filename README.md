@@ -15,4 +15,8 @@ A copy of blackjack with mekdie's style and rule ! This game was aimed to copy f
 - Reveal dealer's card after the player decided to stay
 - Disable the hit and stay after the player has won or lost (Need to be more efficient / refined)
 
+*Version 1.0.3 Alpha:*
+- Reveal dealer's card after the player has won or lost (Need to be more efficient / refined)
+- Dealer / AI logic will be implemented in 1.0.4 to keep the game going until either player loses (Currently the game stop after the player decided to stay)
+
 

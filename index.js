@@ -76,10 +76,12 @@ function hitBtn() {
     if (playerSum == 21) {
         $('#result').html('You Win');
         disableBtn();
+        revealAI();
     }
     else if (playerSum > 21) {
         $('#result').html('You Lose');
         disableBtn();
+        revealAI();
     }
 }
 
@@ -92,6 +94,7 @@ function stayBtn() {
         if (dealerSum > playerSum) {
             $('#result').html('You Lose');
             disableBtn();
+            revealAI();
         }
         else {
             $('#result').html('You Win');
@@ -107,4 +110,9 @@ function stayBtn() {
 function disableBtn() {
     $('#hit').prop('disabled', true);
     $('#stay').prop('disabled', true);
+}
+
+function revealAI() {
+    $('#dealer-cards').html('<p id="initialAI">'+dealerCards+'</p>');
+    $('#dealer-sum').html(dealerSum);
 }

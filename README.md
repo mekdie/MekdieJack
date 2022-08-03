@@ -17,6 +17,16 @@ A copy of blackjack with mekdie's style and rule ! This game was aimed to copy f
 
 *Version 1.0.3 Alpha:*
 - Reveal dealer's card after the player has won or lost (Need to be more efficient / refined)
-- Dealer / AI logic will be implemented in 1.0.4 to keep the game going until either player loses (Currently the game stop after the player decided to stay)
+- Dealer / AI logic will be implemented in 1.0.4 onwards to keep the game going until either player loses (Currently the game stop after the player decided to stay)
 
-
+*Version 1.0.4 Alpha:*
+- Add a sound effect whenever a game starts, restarts, or dealing cards
+- What AI's aspect are currently needed to be implemented:
+    - The game must keep going after the player has decided to stay
+    - The AI must think to beat the player or loses to the player depends on the circumstances (e.g. need to keep going if the dealer/ai's card is not yet equal to 18)
+    - Dealer wins automatically if it reaches 21
+    - Dealer loses automatically if its card exceeds 21
+    - Reveal dealer card one by one as using timeout (maybe) if hit button for dealer is clicked (they play)
+    - Sound effect when win / lose
+    - Disable the buttons after the game ends (need to restart)
+    - To be continued ...

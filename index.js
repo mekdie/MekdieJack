@@ -4,6 +4,27 @@ var dealerCards = [];
 var playerSum = 0;
 var dealerSum = 0;
 var message = '';
+
+//sound effect when clicking button
+
+const dealingCard = new Audio("audio/dealingCard.wav");
+dealingCard.playbackRate = 2;
+const shufflingCard = new Audio("audio/shufflingCard.wav");
+shufflingCard.playbackRate = 2;
+
+const dealBtn = $('button:not(.shuffle)'); //select all button except those with class shuffle
+const shuffleBtn = $('.shuffle');
+
+dealBtn.click(function() {
+    dealingCard.play();
+})
+
+shuffleBtn.click(function() {
+    shufflingCard.play();
+})
+
+//
+
 function sumTotal(arr) {
     let i;
     let sum = 0;

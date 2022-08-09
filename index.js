@@ -43,6 +43,8 @@ function getCardAI() {
     var card = cards[Math.floor(Math.random()*cards.length)];
     dealerCards.push(card);
     $('#dealer-cards').html('<p id="initialAI">'+dealerCards+'</p>');
+    dealerSum = sumTotal(dealerCards);
+    $('#dealer-sum').html(dealerSum);
 }
 function initialCard() {
     getCard();
@@ -105,27 +107,65 @@ function hitBtn() {
         revealAI();
     }
 }
-
+// function aiClick() {
+//     $('#stay').click();
+// }
 function stayBtn() {
     getCardAI();    
-    dealerSum = sumTotal(dealerCards);
-    $('#dealer-sum').html(dealerSum);
-    
-    if (dealerSum <= 21) {
-        if (dealerSum > playerSum) {
-            $('#result').html('You Lose');
-            disableBtn();
-            revealAI();
-        }
-        else {
-            $('#result').html('You Win');
-            disableBtn();
-        }
+    console.log(dealerSum);
+    //AI AUTO PLAY TRICKED WITH CLICK, it mimics the human click so it will keep playing if they haven't reach 18.
+    //BASIC ALGORITHM AND WILL BE COMBINED WITH COMMENTED CODE BELOW
+    if (dealerSum <= 18) {
+        setTimeout(function() {
+            $('#stay').click();
+        }, 1000);
     }
     else {
-        $('#result').html('You Win');
-        disableBtn();
+        console.log("finish");
     }
+
+
+    // var flag = false;
+    // while (!flag) {
+    //     if (dealerSum <= 21) {
+    //         //THE REASON IT GETS BACK HERE IS BECAUSE 
+    //         getCardAI();
+    //         // HAVE TO COUNT THE TOTAL HERE
+    //         console.log(dealerSum);
+    //         //if the dealer sum equal or less than 17, keep going
+    //         if (dealerSum <= 18) {
+    //             setTimeout(getCardAI, 1000);
+    //             console.log('second card');
+    //             continue;
+    //         }
+    //         else {
+    //             if (dealerSum > playerSum) {
+    //                 $('#result').html('You Lose');
+    //                 disableBtn();
+    //                 revealAI();
+    //                 flag = true;
+    //                 console.log("first if");
+    //             }
+    //             else {
+    //                 $('#result').html('You Win');
+    //                 disableBtn();
+    //                 flag = true;
+    //                 console.log("second if");
+    //             }
+    //         }
+    //     }
+    //     //automatically win if the dealer sum more than 21
+    //     else {
+    //         $('#result').html('You Win');
+    //         disableBtn();
+    //         flag = true;
+    //         console.log("third if");
+    //     }   
+    // console.log(flag);
+    // // console.log(dealerSum);
+    // }    
+    // console.log("outside while");
+    // console.log("==========")
 }
 
 function disableBtn() {

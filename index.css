@@ -9,6 +9,8 @@
 }
 .game-control {
     display: none;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .game-body {
     padding-left: 50px;

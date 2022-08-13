@@ -3,8 +3,8 @@
 <head>
     <title>&#9824; MekdieJack</title>
     <meta charset="utf-8">
-	<meta name="description" content="A copy of famous BlackJack Cardgame with Mekdie's style and rule ! This game was aimed to copy famous BlackJack card game by doing 1v1 against AI">
-    <meta name="keywords" content="Mekdie, McDony Lee, MekdieJack, Blackjack, Mekdie Blackjack, Cardgame">
+	<meta name="description" content="MekdieJack the Luck Cardgame">
+    <meta name="keywords" content="Mekdie, McDony Lee, MekdieJack, Blackjack, Mekdie Blackjack, Cardgame, Card">
 	<meta name="author" content="Mekdie - McDony Lee">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -23,13 +23,13 @@
 					</div>
 					<div class="row game-control">
 						<div class="col">
-							<button type="button" class="btn btn-danger btn-block shuffle" id="restart" onclick="restartGame()">Restart</button>
+							<button type="button" class="btn btn-dark btn-block shuffle" id="restart" onclick="restartGame()">Restart</button>
 						</div>
 						<div class="col">
 							<button type="button" class="btn btn-primary btn-block" id="hit" onclick="hitBtn()">Hit</button>	
 						</div>
 						<div class="col">
-							<button type="button" class="btn btn-dark btn-block" id="stay" onclick="stayBtn()">Stay</button>
+							<button type="button" class="btn btn-danger btn-block" id="stay" onclick="stayBtn()">Stay</button>
 						</div>
 					</div>			
 			</div>
@@ -39,11 +39,11 @@
 					<div class="row">
 						<div class="col-6 border border-dark">
 							<h5>Your Total: <span id="player-sum"></span></h5>
-							<div class="col-3" id="player-cards"> <br> </div>
+							<div class="text-break" id="player-cards"> <br> </div>
 						</div>
 						<div class="col-6 border border-dark">
 							<h5>Dealer Total: <span id="dealer-sum"></span></h5>
-							<div id="dealer-cards"></div>
+							<div class="text-break" id="dealer-cards"></div>
 						</div>
 					</div>
 					<div class="row">

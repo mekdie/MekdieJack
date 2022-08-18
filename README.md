@@ -48,5 +48,16 @@ External link: https://mekdie.github.io/MekdieJack/
 - Remove unnecessary code
 - Change restart button text to 'Play again' after the game finishes
 - Next:
-    - Add Randomizer between dealer's threshold either 16-17-18-19
+    - Add Randomizer between dealer's threshold either 16-17-18-19 
+    - Giving percentage chance of getting certain cards to win or lose for both player and AI
     - Add Betting or Score system
+    - Design refinement
+    - Swal confirmation box
+    - Add more menus like about, how to play, etc.
+
+*Version 1.0.7 Early DevNote:*
+- Added sample favicon icon from favicon.io
+- Added green background colour
+- Added box and shadows for the playing screen in the middle
+- Added randomizer for dealer's 
+- Minor bug fixes

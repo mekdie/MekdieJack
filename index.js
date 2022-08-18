@@ -72,6 +72,7 @@ function startGame() {
     initialAI();
 }
 
+
 function restartGame() {
     $('#restart').html('Restart');
     $('#result').html('');
@@ -106,6 +107,7 @@ function hitBtn() {
         disableBtn();
     }
 }
+// Basically AI moves
 function stayBtn() {
     disableBtn();
     getCardAI();    
@@ -113,8 +115,11 @@ function stayBtn() {
     //this is going to the loop because, after click stay btn, the inside of the timeout is clicking the stay button itself, 
     // so it will keep repeating as a recursive function until certain conditions met
     
-    //AI keep playing if the sum is not equal to 18 
-    if (dealerSum <= 18) {
+    //AI keep playing if the sum is not equal to randomizer between 15-19
+    var thresholdAI = [15,16,17,18];
+    const idxThreshold = Math.floor(Math.random() * thresholdAI.length);
+ 
+    if (dealerSum <= thresholdAI[idxThreshold]) {
         setTimeout(function() {
             $('#stay').click();
         }, 1000);
@@ -142,4 +147,6 @@ function stayBtn() {
 function disableBtn() {
     $('#hit').prop('disabled', true);
     $('#stay').prop('disabled', true);
+    $('#player-sum').html(playerSum);
+    $('#dealer-sum').html(dealerSum);
 }

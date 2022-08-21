@@ -16,7 +16,20 @@ body {
     padding: 100px 75px 100px 75px;
     border: 2px solid black;
     border-radius: 8px;
-    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;}
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+@media only screen and (max-width:767px) {
+    .box {      
+        padding: 100px 0px 100px 0px;
+    }
+    #startBtn {
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .board-title {
+        padding: 0px 75px
+    }
+}
 .board {
     display: none;
 }

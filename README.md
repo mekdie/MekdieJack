@@ -47,17 +47,26 @@ External link: https://mekdie.github.io/MekdieJack/
 - Added logic where dealer loses if its card exceeds 21
 - Remove unnecessary code
 - Change restart button text to 'Play again' after the game finishes
-- Next:
-    - Add Randomizer between dealer's threshold either 16-17-18-19 
-    - Giving percentage chance of getting certain cards to win or lose for both player and AI
-    - Add Betting or Score system
-    - Design refinement
-    - Swal confirmation box
-    - Add more menus like about, how to play, etc.
 
 *Version 1.0.7 Early DevNote:*
 - Added sample favicon icon from favicon.io
 - Added green background colour
 - Added box and shadows for the playing screen in the middle
 - Added randomizer for dealer's 
-- Minor bug fixes
+- Minor bug 
+
+*Version 1.0.8 Early DevNote:*
+- Added minor layout adjustment for mobile (767px);
+- Added print function for easy debug
+- Next:
+    - Add Randomizer between dealer's threshold either 16-17-18-19 [done]
+    - Giving percentage chance of getting certain cards to win or lose for both player and AI [on progress]
+    - BUG: make the initial card can't be 11 and 11 or more than 21
+    - giving gradual chance for card draw (e.g. increased chance starting from 10,11,12,13, etc...)
+    - CHECK THE PERCENTAGE (testing) [on progress]
+    - Add Betting or Score system
+    - Design refinement
+    - Swal confirmation box
+    - Add more menus like about, how to play, etc.
+
+*Version 1.0.9 Early DevNote:*

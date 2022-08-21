@@ -24,6 +24,11 @@ shuffleBtn.click(function() {
 })
 
 // ===========
+// print function to debug 
+function print(val) {
+    return console.log(val);
+}
+
 
 function sumTotal(arr) {
     let i;
@@ -35,6 +40,98 @@ function sumTotal(arr) {
 }
 function getCard() {
     var card = cards[Math.floor(Math.random()*cards.length)];
+    var chance = Math.random();
+    // print(chance);
+    // if the player has reached 16 or more
+
+    // rule no.1: they got 10% chance to reach 21
+    // rule no.2: they got 80% chance to reach 20 or 21 
+    // rule no.3: they got 10% chance to exceed 21
+    if (playerSum >= 16) {
+        //10% chance to reach 21 WIN DIRECTLY
+        if (chance <= 0.1) {
+            console.log("10% chance to win instantly");
+            card = 21 - playerSum;
+            // print(card);
+        }
+        //80% chance to go here
+        else if (chance <= 0.9) {
+            //must put the condition if playerSum == 20
+            console.log("80% chance");
+            var inner80 = Math.random();
+            console.log(inner80);
+            //if the value is more than 16 but no equal to 20
+            if (playerSum != 20) {
+
+                // rule no.1: 10% chance to get 21
+                if (inner80 <= 0.1) { //10%
+                    console.log("10% chance to get 21");
+                    card = 21 - playerSum
+                }
+                // rule no.2: 20% chance to get 20
+                else if (inner80 <= 0.3) {
+                    console.log("20% chance to get 20");
+                    card = 21 - playerSum - 1;
+                }
+                // rule no.3: 30% chance to get any cards that make the sum below 21
+                else if (inner80 <= 0.6) {
+                    console.log("30% chance to get any cards that make the sum below 21");
+                    let winCard = 21 - playerSum;
+                    let cardIdx = cards.indexOf(winCard);
+                    let tempArr = [];
+                    for (let i = cardIdx; i > 0; i--) {
+                        tempArr.push(cards[i - 1]);
+                    }
+                    //getting the card from tempArr
+                    card = tempArr[Math.floor(Math.random()*tempArr.length)];
+                }
+                // rule no.4: 40% chance to get any cards that make the sum exceeds 21
+                else {
+                    console.log("40% chance to get any cards that make the sum exceeds 21");
+                    let winCard = 21 - playerSum;
+                    let cardIdx = cards.indexOf(winCard);
+                    let tempArr = [];
+                    for (let i = cardIdx; i < cards.length; i++) {
+                        tempArr.push(cards[i]);
+                    }
+                    //getting the card from tempArr
+                    card = tempArr[Math.floor(Math.random()*tempArr.length)];
+                }
+
+            }
+            // if the player sum is 20
+            else {
+                var sum20chance = Math.random();
+                //10% chance to win directly to 21;
+                if (sum20chance <= 0.1) {
+                    console.log("win from 10% chance");
+                    card = 1;
+                }
+                //90% chance to lose, sum will exceeds 21
+                else {
+                    console.log("lose from 90% chance of 20-21");
+                    let tempArr = [];
+                    for (let i = 1; i < cards.length; i++) {
+                        tempArr.push(cards[i]);
+                    }
+                    //getting the card from tempArr
+                    card = tempArr[Math.floor(Math.random()*tempArr.length)];
+                }   
+            }
+        }
+        else {
+            console.log("10% chance to lose");
+            //logic to get the card that has the value more than the winning numbers (e.g. no.3 made the total 21, so get all cards except 3 and below)
+            let winCard = 21 - playerSum;
+            let cardIdx = cards.indexOf(winCard);
+            let tempArr = [];
+            for (let i = cardIdx; i < cards.length; i++) {
+                tempArr.push(cards[i]);
+            }
+            //getting the card from tempArr
+            card = tempArr[Math.floor(Math.random()*tempArr.length)];
+        }
+    }
     playerCards.push(card);
     $('#player-cards').html('<p>'+playerCards+'</p>');
 }

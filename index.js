@@ -40,7 +40,6 @@ function sumTotal(arr) {
 }
 function getCard() {
     var card = cards[Math.floor(Math.random()*cards.length)];
-    var chance = Math.random();
     // print(chance);
     // if the player has reached 16 or more
 
@@ -133,6 +132,7 @@ function getCard() {
         }
     }
     playerCards.push(card);
+    playerSum = sumTotal(playerCards);
     $('#player-cards').html('<p>'+playerCards+'</p>');
 }
 
@@ -144,17 +144,76 @@ function getCardAI() {
     $('#dealer-sum').html(dealerSum);
 }
 function initialCard() {
-    getCard();
-    getCard();
-    playerSum = sumTotal(playerCards);
+    var initialChance = Math.random();
+
+    //0.8% chance to get a natural mekdiejack - instant win
+    if (initialChance < 0.008) {
+        naturalJack();
+    }
+    else {
+        getCard();
+        getCard();
+        //repeat second draw if the total is 22 
+        if (playerSum >= 22) {
+            playerCards.pop();
+            getCard();
+        }
+    }
     $('#player-sum').html(playerSum);
 }
+
+function naturalJack() {
+    playerCards.push(10);
+    playerCards.push(11);
+    $('#player-cards').html('<p>'+playerCards+'</p>');
+}
+function naturalJackAI() {
+    dealerCards.push(10);
+    dealerCards.push(11);
+    $('#dealer-cards').html('<p id="initialAI">?,'+dealerCards[1]+'</p>');
+}
+
 function initialAI() {
-    getCardAI();
-    getCardAI();
+    var initChance = Math.random();
+    //0.8% chance to get a natural mekdiejack - instant win
+    if (initChance < 0.008) {
+        naturalJackAI();
+    }
+    else {
+        getCardAI();
+        getCardAI();
+
+        //repeat second draw if the total is 22 
+        if (dealerSum >= 22) {
+            dealerCards.pop();
+            getCardAI();
+        }
+    }
     dealerSum = sumTotal(dealerCards);
-    $('#dealer-sum').html('?');
-    $('#initialAI').html('<p id="initialAI">?,'+dealerCards[1]+'</p>');
+
+    //if the player does not get natural, hide it as usual
+    if (playerSum != 21) {
+        $('#dealer-sum').html('?');
+        $('#initialAI').html('<p id="initialAI">?,'+dealerCards[1]+'</p>');
+    }
+    //show the cards instantly if they player got natural mekdiejack
+    else {
+        $('#dealer-sum').html(dealerSum);
+        $('#initialAI').html('<p id="initialAI">'+dealerCards+'</p>');
+    }
+}
+
+function initialCheck() {
+    if (playerSum == 21 && dealerSum == 21) {
+        $('#result').html('Instant Draw! Natural Draw de MekdieJack ~ ');
+        $('#restart').html('Play again');
+        disableBtn();   
+    }
+    else if ((playerSum > dealerSum) && playerSum == 21) {
+        $('#result').html('Instant Win! Natural MekdieJack ~ ');
+        $('#restart').html('Play again');
+        disableBtn();   
+    }
 }
 function startGame() {
     $('.board').show();
@@ -162,13 +221,12 @@ function startGame() {
     $('.game-control').css('display', 'inline-flex');
 
     //get initial 2 cards
-    getCard();
-    getCard();
-    playerSum = sumTotal(playerCards);
-    $('#player-sum').html(playerSum);
+    initialCard();
     initialAI();
-}
 
+    //check the initial cards
+    initialCheck();
+}
 
 function restartGame() {
     $('#restart').html('Restart');
@@ -188,57 +246,69 @@ function restartGame() {
     dealerSum = 0;
     initialAI();
 
+    //check the initial cards
+    initialCheck();
 }
 function hitBtn() {
     getCard();
     playerSum = sumTotal(playerCards);
     $('#player-sum').html(playerSum);
 
-
     if (playerSum == 21) {
         $('#result').html('You Win');
+        $('#restart').html('Play again');
         disableBtn();
     }
     else if (playerSum > 21) {
         $('#result').html('You Lose');
+        $('#restart').html('Play again');
         disableBtn();
     }
 }
 // Basically AI moves
 function stayBtn() {
     disableBtn();
-    getCardAI();    
-    
-    //this is going to the loop because, after click stay btn, the inside of the timeout is clicking the stay button itself, 
-    // so it will keep repeating as a recursive function until certain conditions met
-    
-    //AI keep playing if the sum is not equal to randomizer between 15-19
-    var thresholdAI = [15,16,17,18];
-    const idxThreshold = Math.floor(Math.random() * thresholdAI.length);
- 
-    if (dealerSum <= thresholdAI[idxThreshold]) {
-        setTimeout(function() {
-            $('#stay').click();
-        }, 1000);
-    }
-    // stop playing if exceeds 18
-    else {
-        if ((dealerSum > playerSum) && dealerSum <= 21) {
-            $('#result').html('You Lose');
-            $('#restart').html('Play again');
-            disableBtn();
+    //keep the game going if the dealer sum still less then 21 (to prevent overflowing when dealer is an instant win)
+    if (!(dealerSum == 21 && dealerSum > playerSum)) {
+        getCardAI();    
+        
+        //this is going to the loop because, after click stay btn, the inside of the timeout is clicking the stay button itself, 
+        // so it will keep repeating as a recursive function until certain conditions met
+        
+        //AI keep playing if the sum is not equal to randomizer between 15-19
+        var thresholdAI = [15,16,17,18];
+        const idxThreshold = Math.floor(Math.random() * thresholdAI.length);
+        
+        if (dealerSum <= thresholdAI[idxThreshold]) {
+            setTimeout(function() {
+                $('#stay').click();
+            }, 1000);
         }
-        else if (dealerSum == playerSum) {
-            $('#result').html('Draw');
-            $('#restart').html('Play again');
-            disableBtn();  
-        }
+        // stop playing if exceeds 18
         else {
-            $('#result').html('You Win');
-            $('#restart').html('Play again');
-            disableBtn();   
-        }
-    }    
+            if ((dealerSum > playerSum) && dealerSum <= 21) {
+                $('#result').html('You Lose');
+                $('#restart').html('Play again');
+                disableBtn();
+            }
+            else if (dealerSum == playerSum) {
+                $('#result').html('Draw');
+                $('#restart').html('Play again');
+                disableBtn();  
+            }
+            else {
+                $('#result').html('You Win');
+                $('#restart').html('Play again');
+                disableBtn();   
+            }
+        }    
+    }
+    // stop the game if the dealer wins on the first draw
+    else {
+        $('#result').html('You Lose');
+        $('#restart').html('Play again');
+        disableBtn();
+    }
 }
 
 function disableBtn() {
@@ -246,4 +316,5 @@ function disableBtn() {
     $('#stay').prop('disabled', true);
     $('#player-sum').html(playerSum);
     $('#dealer-sum').html(dealerSum);
+    $('#dealer-cards').html('<p id="initialAI">'+dealerCards+'</p>');
 }

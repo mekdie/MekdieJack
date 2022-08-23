@@ -1,7 +1,8 @@
 # MekdieJack
-A copy / parody of blackjack with Mekdie's style and rule ! This game was aimed to copy famous BlackJack card game by doing 1v1 against AI. Pure luck or skill is on you~ The reason MekdieJack is created is no other than to improve my JavaScript and coding/algorithm skills. The game can be accessed [here](https://mekdie.github.io/MekdieJack/):
+A copy / parody of blackjack with Mekdie's style and rule ! This game was aimed to copy famous BlackJack card game by doing 1v1 against AI. Pure luck or skill is on you~ The reason MekdieJack is created is no other than to improve my Web Development, Game Development, and Coding/Algorithm skills. The game can be accessed [here](https://mekdie.github.io/MekdieJack/):
 
 External link: https://mekdie.github.io/MekdieJack/ 
+
 
 ## Version Changelog
 *Version 1.0 Early DevNote:*
@@ -61,12 +62,20 @@ External link: https://mekdie.github.io/MekdieJack/
 - Next:
     - Add Randomizer between dealer's threshold either 16-17-18-19 [done]
     - Giving percentage chance of getting certain cards to win or lose for both player and AI [on progress]
-    - BUG: make the initial card can't be 11 and 11 or more than 21
+    - BUG: make the initial card can't be 11 and 11 or more than 21 [done]
     - giving gradual chance for card draw (e.g. increased chance starting from 10,11,12,13, etc...)
-    - CHECK THE PERCENTAGE (testing) [on progress]
+    - CHECK THE PERCENTAGE (testing) [on progerss]
     - Add Betting or Score system
     - Design refinement
     - Swal confirmation box
     - Add more menus like about, how to play, etc.
 
 *Version 1.0.9 Early DevNote:*
+- Organize the folder for favicons
+- Fixed an issue where there are chances for the first two cards to be more than 21 (e.g 11 and 11) for both player and AI
+    - Instead **added a new feature** to give 0.8% chance on the first draw to be 21
+    - Initial draw can no longer be more than 21 
+- Fixed an issue where when the player loses due to keep drawing a card, the system won't display the dealer's card 
+
+*Version 1.1.10 Early DevNote:*
+== TBA == 

@@ -64,7 +64,7 @@ External link: https://mekdie.github.io/MekdieJack/
     - Giving percentage chance of getting certain cards to win or lose for both player and AI [on progress]
     - BUG: make the initial card can't be 11 and 11 or more than 21 [done]
     - giving gradual chance for card draw (e.g. increased chance starting from 10,11,12,13, etc...)
-    - CHECK THE PERCENTAGE (testing) [on progerss]
+    - CHECK THE PERCENTAGE (testing) [on progress]
     - Add Betting or Score system
     - Design refinement
     - Swal confirmation box
@@ -78,4 +78,12 @@ External link: https://mekdie.github.io/MekdieJack/
 - Fixed an issue where when the player loses due to keep drawing a card, the system won't display the dealer's card 
 
 *Version 1.1.10 Early DevNote:*
-== TBA == 
+- Minor bug fixes
+- Added sound placeholder on buttons click, win, lose, and draw
+- Improved gameplay by giving some delays (to avoid spam and mimic thinking behaviour - so card dealing won't be instant)
+- Next: 
+    - Because there are audios playing in the webpage, should also provide mute/unmute button to give the users freedom whether they want to hear the sound effect or not (just in case they are annoying lol)
+    - Loading bar or sth like that
+
+*Version 1.1.11 Early DevNote:*
+

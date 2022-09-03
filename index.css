@@ -26,9 +26,21 @@ body {
         margin-right: auto;
         margin-left: auto;
     }
-    .board-title {
+    .startgame {
         padding: 0px 75px
     }
+}
+@media only screen and (max-width:350px) {
+    .game-control {
+        flex-direction: column;
+    }
+    .game-control {
+        width: inherit;
+    }
+    .game-control .btn {
+        width: inherit;
+    }
+    
 }
 .board {
     display: none;

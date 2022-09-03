@@ -86,4 +86,8 @@ External link: https://mekdie.github.io/MekdieJack/
     - Loading bar or sth like that
 
 *Version 1.1.11 Early DevNote:*
+- Added CSS to make the button be more responsive
+- Fixed minor padding issue
+
+*Version 1.1.12 Early DevNote:*
 

@@ -44,7 +44,7 @@ const getCard = () => {
     let card = cards[Math.floor(Math.random() * cards.length)];
     const chance = Math.random();
 
-    if (playerSum >= 16) {
+    if (playerSum >= 16 && playerSum <= 21) {
         if (chance <= 0.1) {
             // 10% chance to reach 21
             console.log("10% chance to win instantly");
@@ -97,7 +97,24 @@ const getCard = () => {
 
     playerCards.push(card);
     playerSum = sumTotal(playerCards);
+    $("#player-sum").html(playerSum);
     updatePlayerCards();
+
+    if (playerSum > 21) {
+        // ai.play();
+        // aiMoves();
+        // Stop the game if the player cards exceeds 21
+        lose.play();
+        $("#result").html("You Lose");
+        $("#restart").html("Play again");
+        disableBtn();
+        revealDealerCard(); // Reveal the dealer's first card after the dealer moves
+    } else if (playerSum === 21) {
+        win.play();
+        $("#result").html("You Win");
+        $("#restart").html("Play again");
+        disableBtn();
+    }
 };
 
 const getRandomCardExcluding = (exclude) => {

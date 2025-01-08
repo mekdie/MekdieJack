@@ -20,16 +20,18 @@ const dealBtn = $("#hit");
 const shuffleBtn = $(".shuffle");
 const stayBtn = $("#stay");
 
-dealBtn.click(function () {
+dealBtn.click(() => {
     dealingCard.play();
+    getCard();
 });
 
-shuffleBtn.click(function () {
+shuffleBtn.click(() => {
     shufflingCard.play();
 });
 
-stayBtn.click(function () {
+stayBtn.click(() => {
     ai.play();
+    aiMoves();
 });
 
 // ===========
@@ -95,42 +97,42 @@ const getCard = () => {
 
     playerCards.push(card);
     playerSum = sumTotal(playerCards);
-    $("#player-cards").html(`<p>${playerCards.join(", ")}</p>`);
+    updatePlayerCards();
 };
 
-function getRandomCardExcluding(exclude) {
+const getRandomCardExcluding = (exclude) => {
     const tempArr = cards.filter((card) => !exclude.includes(card));
     return tempArr[Math.floor(Math.random() * tempArr.length)];
-}
+};
 
-function getRandomCardBelow(maxValue) {
+const getRandomCardBelow = (maxValue) => {
     const tempArr = cards.filter((card) => card < maxValue);
     return tempArr[Math.floor(Math.random() * tempArr.length)];
-}
+};
 
-function getRandomCardAbove(minValue) {
+const getRandomCardAbove = (minValue) => {
     const tempArr = cards.filter((card) => card >= minValue);
     return tempArr[Math.floor(Math.random() * tempArr.length)];
-}
+};
 
 const getCardAI = () => {
     const card = cards[Math.floor(Math.random() * cards.length)];
     dealerCards.push(card);
-    $("#dealer-cards").html(`<p id="initialAI">${dealerCards.join(", ")}</p>`);
+    updateDealerCards();
     dealerSum = sumTotal(dealerCards);
     $("#dealer-sum").html(dealerSum);
 };
 
 const initialCard = () => {
-    var initialChance = Math.random();
+    const initialChance = Math.random();
 
-    //0.8% chance to get a natural mekdiejack - instant win
+    // 0.8% chance to get a natural mekdiejack - instant win
     if (initialChance < 0.008) {
         naturalJack();
     } else {
         getCard();
         getCard();
-        //repeat second draw if the total is 22
+        // Repeat second draw if the total is 22
         if (playerSum >= 22) {
             playerCards.pop();
             getCard();
@@ -142,27 +144,26 @@ const initialCard = () => {
 const naturalJack = () => {
     playerCards.push(10, 11);
     playerSum = sumTotal(playerCards);
-    $("#player-cards").html(`<p>${playerCards.join(", ")}</p>`);
-    $("#player-sum").html(playerSum);
+    updatePlayerCards();
 };
 
 const naturalJackAI = () => {
     dealerCards.push(10, 11);
     dealerSum = sumTotal(dealerCards);
-    $("#dealer-cards").html(`<p id="initialAI">?,${dealerCards[1]}</p>`);
+    updateDealerCards();
     $("#dealer-sum").html(dealerSum);
 };
 
 const initialAI = () => {
-    var initChance = Math.random();
-    //0.8% chance to get a natural mekdiejack - instant win
+    const initChance = Math.random();
+    // 0.8% chance to get a natural mekdiejack - instant win
     if (initChance < 0.008) {
         naturalJackAI();
     } else {
         getCardAI();
         getCardAI();
 
-        //repeat second draw if the total is 22
+        // Repeat second draw if the total is 22
         if (dealerSum >= 22) {
             dealerCards = [];
             initialAI();
@@ -170,25 +171,24 @@ const initialAI = () => {
     }
     dealerSum = sumTotal(dealerCards);
 
-    //if the player does not get natural, hide it as usual
-    if (playerSum != 21) {
+    // If the player does not get natural, hide it as usual
+    if (playerSum !== 21) {
         $("#dealer-sum").html("?");
-        $("#initialAI").html('<p id="initialAI">?,' + dealerCards[1] + "</p>");
-    }
-    //show the cards instantly if they player got natural mekdiejack
-    else {
+        $("#initialAI").html(`<p id="initialAI">?,${dealerCards[1]}</p>`);
+    } else {
+        // Show the cards instantly if the player got natural mekdiejack
         $("#dealer-sum").html(dealerSum);
-        $("#initialAI").html('<p id="initialAI">' + dealerCards + "</p>");
+        $("#initialAI").html(`<p id="initialAI">${dealerCards.join(", ")}</p>`);
     }
 };
 
 const initialCheck = () => {
-    if (playerSum == 21 && dealerSum == 21) {
+    if (playerSum === 21 && dealerSum === 21) {
         draw.play();
         $("#result").html("Instant Draw! Natural Draw de MekdieJack ~ ");
         $("#restart").html("Play again");
         disableBtn();
-    } else if (playerSum > dealerSum && playerSum == 21) {
+    } else if (playerSum === 21) {
         win.play();
         $("#result").html("Instant Win! Natural MekdieJack ~ ");
         $("#restart").html("Play again");
@@ -206,11 +206,11 @@ const startGame = () => {
     $("#hit").prop("disabled", false);
     $("#stay").prop("disabled", false);
 
-    //get initial 2 cards
+    // Get initial 2 cards
     initialCard();
     initialAI();
 
-    //check the initial cards
+    // Check the initial cards
     initialCheck();
 };
 
@@ -231,38 +231,30 @@ const restartGame = () => {
     $("#dealer-sum").html("0");
     dealerSum = 0;
     initialAI();
-
-    //check the initial cards
-    initialCheck();
 };
 
-const hitBtn = () => {
-    getCard();
-    playerSum = sumTotal(playerCards);
+const disableBtn = () => {
+    $("#hit").prop("disabled", true);
+    $("#stay").prop("disabled", true);
     $("#player-sum").html(playerSum);
-
-    if (playerSum == 21) {
-        win.play();
-        $("#result").html("You Win");
-        $("#restart").html("Play again");
-        disableBtn();
-    } else if (playerSum > 21) {
-        lose.play();
-        $("#result").html("You Lose");
-        $("#restart").html("Play again");
-        disableBtn();
-    }
-};
-
-const stay = () => {
-    disableBtn();
-    //to delay card draw from AI
+    $("#dealer-sum").html(dealerSum);
+    updateDealerCards();
+    // Delay new game button for a second to avoid spam click
+    $("#restart").prop("disabled", true);
     setTimeout(() => {
-        aiMoves();
+        $("#restart").prop("disabled", false);
     }, 1000);
 };
 
-// Basically AI moves
+// Toggle audio in the website on / off
+const toggleMuted = () => {
+    console.log("muted");
+    audioArr.forEach((audio) => {
+        audio.muted = !audio.muted;
+    });
+};
+
+// Example usage: Reveal the dealer's first card after the dealer moves
 const aiMoves = () => {
     dealingCard.play();
 
@@ -299,6 +291,7 @@ const aiMoves = () => {
                 $("#restart").html("Play again");
                 disableBtn();
             }
+            revealDealerCard(); // Reveal the dealer's first card after the dealer moves
         }
     } else {
         // Stop the game if the dealer wins on the first draw
@@ -306,18 +299,40 @@ const aiMoves = () => {
         $("#result").html("You Lose");
         $("#restart").html("Play again");
         disableBtn();
+        revealDealerCard(); // Reveal the dealer's first card after the dealer moves
     }
 };
 
-const disableBtn = () => {
-    $("#hit").prop("disabled", true);
-    $("#stay").prop("disabled", true);
-    $("#player-sum").html(playerSum);
-    $("#dealer-sum").html(dealerSum);
-    $("#dealer-cards").html('<p id="initialAI">' + dealerCards + "</p>");
-    //delay new game button for a second to avoid spam click
-    $("#restart").prop("disabled", true);
-    setTimeout(function () {
-        $("#restart").prop("disabled", false);
-    }, 1000);
+const getCardImageUrl = (card) => `images/cards/${card}.svg`;
+
+const updatePlayerCards = () => {
+    const playerCardsHtml = playerCards
+        .map(
+            (card) =>
+                `<img src="${getCardImageUrl(
+                    card
+                )}" class="card-image" alt="Card ${card}">`
+        )
+        .join("");
+
+    $("#player-cards").html(playerCardsHtml);
+};
+
+const updateDealerCards = (reveal = false) => {
+    const dealerCardsHtml = dealerCards
+        .map((card, index) => {
+            if (index === 0 && !reveal) {
+                return `<img src="images/cards/back.svg" class="card-image" alt="Card Back">`;
+            } else {
+                return `<img src="${getCardImageUrl(
+                    card
+                )}" class="card-image" alt="Card ${card}">`;
+            }
+        })
+        .join("");
+    $("#dealer-cards").html(dealerCardsHtml);
+};
+
+const revealDealerCard = () => {
+    updateDealerCards(true);
 };

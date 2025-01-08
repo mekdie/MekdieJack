@@ -5,6 +5,9 @@
     --background-color: white;
     --border-color: black;
     --box-shadow-color: rgba(0, 0, 0, 0.56);
+    --padding-large: 6.25rem; /* 100px */
+    --padding-medium: 4.6875rem; /* 75px */
+    --padding-small: 1rem; /* 16px */
 }
 
 body {
@@ -22,36 +25,56 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--padding-small);
 }
 
 .box {
     background-color: var(--background-color);
     margin: 0 auto;
-    padding: 6.25rem 4.6875rem;
+    padding: var(--padding-large) var(--padding-medium);
     border: 2px solid var(--border-color);
     border-radius: 0.5rem;
     box-shadow: var(--box-shadow-color) 0px 22px 70px 4px;
 }
 
+.card-image {
+    width: 40px;
+    height: auto;
+    margin: 0.5rem;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card-image.flip {
+    transform: rotateY(180deg);
+}
+
 @media only screen and (max-width: 767px) {
     .box {
-        padding: 6.25rem 0;
+        padding: var(--padding-large) var(--padding-small);
     }
     #startBtn {
         margin: 0 auto;
     }
     .startgame {
-        padding: 0 4.6875rem;
+        padding: var(--padding-small) var(--padding-medium);
     }
 }
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 480px) {
+    .box {
+        padding: var(--padding-medium) var(--padding-small);
+    }
     .game-control {
         flex-direction: column;
         width: 100%;
     }
     .game-control .btn {
         width: 100%;
+        margin-bottom: var(--padding-small);
+    }
+    .board .col-6 {
+        padding: var(--padding-small);
     }
 }
 

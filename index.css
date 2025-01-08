@@ -1,56 +1,76 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --danger-color: #dc3545;
+    --background-color: white;
+    --border-color: black;
+    --box-shadow-color: rgba(0, 0, 0, 0.56);
+}
+
 body {
-    min-height: 100%;
-    background-image: url("images/background-green.jpg");
-    background-size: cover;
- }
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
 .container {
     min-height: 100vh; /* minimum height = screen height */
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .box {
-    background-color: white;
-    margin-right: auto;
-    margin-left: auto;
-    padding: 100px 75px 100px 75px;
-    border: 2px solid black;
-    border-radius: 8px;
-    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    background-color: var(--background-color);
+    margin: 0 auto;
+    padding: 6.25rem 4.6875rem;
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow-color) 0px 22px 70px 4px;
 }
-@media only screen and (max-width:767px) {
-    .box {      
-        padding: 100px 0px 100px 0px;
+
+@media only screen and (max-width: 767px) {
+    .box {
+        padding: 6.25rem 0;
     }
     #startBtn {
-        margin-right: auto;
-        margin-left: auto;
+        margin: 0 auto;
     }
     .startgame {
-        padding: 0px 75px
+        padding: 0 4.6875rem;
     }
 }
-@media only screen and (max-width:350px) {
+
+@media only screen and (max-width: 350px) {
     .game-control {
         flex-direction: column;
-    }
-    .game-control {
-        width: inherit;
+        width: 100%;
     }
     .game-control .btn {
-        width: inherit;
+        width: 100%;
     }
-    
 }
+
+.btn {
+    margin: 0.5rem 0;
+}
+
+.board-title h1 {
+    margin-bottom: 1rem;
+}
+
 .board {
-    display: none;
+    margin-top: 1rem;
 }
-.game-control {
-    display: none;
-    white-space: nowrap;
-    overflow: hidden;
+
+.board .row {
+    margin-bottom: 1rem;
 }
-.game-body {
-    padding-left: 50px;
-    padding-right: 50px;
+
+.board .col-6 {
+    padding: 1rem;
+}
+
+.board .col-12 {
+    text-align: center;
 }

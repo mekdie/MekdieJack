@@ -1,67 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>MekdieJack: the Luck Cardgame with AI</title>
-    <meta charset="utf-8">
-	<meta name="description" content="MekdieJack the Luck Cardgame">
-    <meta name="keywords" content="Mekdie, McDony Lee, MekdieJack, Blackjack, Mekdie Blackjack, Cardgame, Card">
-	<meta name="author" content="Mekdie - McDony Lee">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Favicon -->
-	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-	<link rel="manifest" href="/images/site.webmanifest">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="index.css">
-
-</head>
-<body>
-	<div class="container">    
-		<div class="row box">
-			<div class="board-title text-center">
-				<h1>MekdieJack</h1>
-					<div class="row startgame">
-						<button id="startBtn" type="button" class="btn shadow-none btn-primary shuffle" onclick="startGame()">Start Game</button>
-					</div>
-					<div class="row game-control">
-						<div class="col">
-							<button type="button" class="btn shadow-none btn-dark btn-block shuffle" id="restart" onclick="restartGame()">Restart</button>
-						</div>
-						<br>
-						<div class="col">
-							<button type="button" class="btn shadow-none btn-primary btn-block" id="hit" onclick="hitBtn()">Hit</button>	
-						</div>
-						<br>
-						<div class="col">
-							<button type="button" class="btn shadow-none btn-danger btn-block" id="stay" onclick="stay()">Stay</button>
-						</div>
-					</div>			
-			</div>
-			<div class="game-body">
-				<hr>
-				<div class="board">
-					<div class="row">
-						<div class="col-6 border border-dark">
-							<h5>Your Total: <span id="player-sum"></span></h5>
-							<div class="text-break" id="player-cards"> <br> </div>
-						</div>
-						<div class="col-6 border border-dark">
-							<h5>Dealer Total: <span id="dealer-sum"></span></h5>
-							<div class="text-break" id="dealer-cards"></div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12">
-							<h4 id="result"></h4>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
-<script src="index.js"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="MekdieJack - A card game similar to Blackjack"
+        />
+        <title>MekdieJack</title>
+        <link rel="manifest" href="/images/site.webmanifest" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="index.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row box">
+                <button
+                    class="btn"
+                    onclick="toggleMuted()"
+                    aria-label="Toggle Mute"
+                >
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <div class="board-title text-center">
+                    <h1>MekdieJack</h1>
+                    <div class="row startgame">
+                        <button
+                            id="startBtn"
+                            type="button"
+                            class="btn shadow-none btn-primary shuffle"
+                            onclick="startGame()"
+                        >
+                            Start Game
+                        </button>
+                    </div>
+                    <div class="row game-control">
+                        <div class="col">
+                            <button
+                                type="button"
+                                class="btn shadow-none btn-dark btn-block shuffle"
+                                id="restart"
+                                onclick="restartGame()"
+                            >
+                                Restart
+                            </button>
+                        </div>
+                        <br />
+                        <div class="col">
+                            <button
+                                type="button"
+                                class="btn shadow-none btn-primary btn-block"
+                                id="hit"
+                                onclick="hitBtn()"
+                            >
+                                Hit
+                            </button>
+                        </div>
+                        <br />
+                        <div class="col">
+                            <button
+                                type="button"
+                                class="btn shadow-none btn-danger btn-block"
+                                id="stay"
+                                onclick="stay()"
+                            >
+                                Stay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-body">
+                    <hr />
+                    <div class="board">
+                        <div class="row">
+                            <div class="col-6 border border-dark">
+                                <h5>
+                                    Your Total: <span id="player-sum"></span>
+                                </h5>
+                                <div class="text-break" id="player-cards">
+                                    <br />
+                                </div>
+                            </div>
+                            <div class="col-6 border border-dark">
+                                <h5>
+                                    Dealer Total: <span id="dealer-sum"></span>
+                                </h5>
+                                <div class="text-break" id="dealer-cards"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 id="result"></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"
+        ></script>
+        <script src="index.js"></script>
+    </body>
 </html>

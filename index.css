@@ -11,6 +11,10 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
+    background-image: url("images/background-green.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .container {
